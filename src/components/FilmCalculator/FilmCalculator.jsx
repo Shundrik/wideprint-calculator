@@ -1,37 +1,49 @@
-import { Field, Formik, Form,  } from "formik";
-
+import { Field, Formik, Form, ErrorMessage } from "formik";
+import styled from "styled-components";
 import * as Yup from "yup";
 const initialValues = {
-    // typeMaterial:"",
+  // typeMaterial:"",
   width: "",
   height: "",
-  onPrint:"",
-  cutInSize:"",
-  laminat:""
+  onPrint: "",
+  cutInSize: false,
+  laminat: "",
+};
 
+const filmSchema = Yup.object().shape({
+  // typeMaterial:Yup.string(),
+  width: Yup.number().min(10).max(9999999).required(),
+  height: Yup.number().min(10).max(9999999).required(),
+  //   onPrint:Yup.string(),
+  cutInSize: Yup.boolean().default(false),
+  //   laminat:Yup.string()
+});
 
-  };
-
-  const filmSchema = Yup.object().shape({
-     // typeMaterial:Yup.string(),
-  width:Yup.number().required(),
-  height: Yup.number().min(2).max(8).required(),
-  onPrint:Yup.string(),
-  cutInSize:Yup.string(),
-  laminat:Yup.string()
-     });
+const ErrorText = styled.p`
+  color: red;
+`;
+const FormError = ({ name }) => {
+  return (
+    <ErrorMessage
+      name={name}
+      render={(message) => <ErrorText>{message}</ErrorText>}
+    />
+  );
+};
 
 export const FilmCalculator = () => {
-  const handleSubmit = (values,{resetForm}) => {
+  const handleSubmit = (values, { resetForm }) => {
     console.log(values);
     // resetForm()
   };
   return (
     <>
       <h1>Порахувати плівку</h1>
-      <Formik initialValues={initialValues} 
-      validationSchema={filmSchema}
-      onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={filmSchema}
+        onSubmit={handleSubmit}
+      >
         <Form>
           <label>
             <Field type="radio" name="onPrint" value="wtiteGlossMat" />
@@ -56,24 +68,35 @@ export const FilmCalculator = () => {
 
           <br />
           <label>
-            ширина <Field  name="width"></Field> mm
+            ширина{" "}
+            <Field
+              name="width"
+              placeholder="введіть будласка ширину в мм"
+            ></Field>{" "}
+            mm
           </label>
+          <FormError name="width" />
           <br />
 
           <label>
-            висота <Field name="height"></Field> mm
+            висота{" "}
+            <Field
+              name="height"
+              placeholder="введіть будласка висоту в мм"
+            ></Field>{" "}
+            mm
           </label>
-
+          <FormError name="height" />
 
           <br />
           <p>выбери доп обработку</p>
           <label>
             <Field type="checkbox" name="cutInSize" value="cut" />
-            вырезать в  размер
+            вырезать в размер
           </label>
           <br />
           <p>ламинация</p>
-           <br />
+          <br />
           <label>
             <Field type="radio" name="laminat" value="clearGloss" />
             прозрачной глянцевой
@@ -93,7 +116,7 @@ export const FilmCalculator = () => {
 
           <br />
           <br />
-          <button type="submit" >расчет</button>
+          <button type="submit">расчет</button>
         </Form>
       </Formik>
     </>
