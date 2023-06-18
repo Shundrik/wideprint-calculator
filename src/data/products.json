@@ -1,0 +1,36 @@
+[
+  {
+    "film": [
+      {
+        "type": "witeGloss",
+        "size": [1000, 1260, 1400, 1600],
+        "printPrice": 135,
+        "overMaterialPrice": 80
+      },
+      {
+        "type": "witeMatt",
+        "size": [1000, 1260, 1400, 1600],
+        "printPrice": 150,
+        "overMaterialPrice": 80
+      },
+      {
+        "type": "clear",
+        "size": [1000, 1370, 1600],
+        "printPrice": 150,
+        "overMaterialPrice": 80
+      },
+      {
+        "type": "oneWayWision",
+        "size": [1070, 1270, 1370, 1520],
+        "printPrice": 175,
+        "overMaterialPrice": 110
+      },
+      {
+        "type": "blockOut",
+        "size": [1050, 1260, 1600],
+        "printPrice": 150,
+        "overMaterialPrice": 80
+      }
+    ]
+  }
+]

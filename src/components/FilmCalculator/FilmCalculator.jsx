@@ -1,22 +1,23 @@
 import { Field, Formik, Form, ErrorMessage } from "formik";
+
 import styled from "styled-components";
 import * as Yup from "yup";
+import products from "../../data/products.json"
+
 const initialValues = {
-  // typeMaterial:"",
   width: "",
   height: "",
-  onPrint: "",
+  typeFilm: "",
   cutInSize: false,
-  laminat: "",
+  // laminat: "false",
+  typeFilmlaminat: "",
 };
 
 const filmSchema = Yup.object().shape({
-  // typeMaterial:Yup.string(),
   width: Yup.number().min(10).max(9999999).required(),
   height: Yup.number().min(10).max(9999999).required(),
-  //   onPrint:Yup.string(),
   cutInSize: Yup.boolean().default(false),
-  //   laminat:Yup.string()
+  // laminat: Yup.boolean().default(false),
 });
 
 const ErrorText = styled.p`
@@ -31,14 +32,38 @@ const FormError = ({ name }) => {
   );
 };
 
-export const FilmCalculator = () => {
+export const FilmCalculator = (values) => {
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
     // resetForm()
+    console.log(products);
+let product = products.map((el)=>{
+  let productNew = [];
+  for (let i = 0; i > product.langht; i++) {
+    productNew=products.push(i)
+  console.log(productNew);
+  }
+  
+  
+ 
+  return el
+
+});
+   console.log(product);
+
+
+
+
+
+
+
+
+
+
   };
+
   return (
     <>
-      <h1>Порахувати плівку</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={filmSchema}
@@ -46,22 +71,22 @@ export const FilmCalculator = () => {
       >
         <Form>
           <label>
-            <Field type="radio" name="onPrint" value="wtiteGlossMat" />
+            <Field type="radio" name="typeFilm" value="wtiteGlossMat" />
             белая глянец, мат
           </label>
           <br />
           <label>
-            <Field type="radio" name="onPrint" value="clearGlossMat" />
+            <Field type="radio" name="typeFilm" value="clearGlossMat" />
             прозрачная глянец, мат
           </label>
           <br />
           <label>
-            <Field type="radio" name="onPrint" value="oneWayWision" />
+            <Field type="radio" name="typeFilm" value="oneWayWision" />
             Перфорированная
           </label>
           <br />
           <label>
-            <Field type="radio" name="onPrint" value="BlackOut" />
+            <Field type="radio" name="typeFilm" value="BlackOut" />
             Блекаут
           </label>
           <br />
@@ -91,29 +116,19 @@ export const FilmCalculator = () => {
           <br />
           <p>выбери доп обработку</p>
           <label>
-            <Field type="checkbox" name="cutInSize" value="cut" />
+            <Field type="checkbox" name="cutInSize" />
             вырезать в размер
           </label>
           <br />
           <p>ламинация</p>
           <br />
-          <label>
-            <Field type="radio" name="laminat" value="clearGloss" />
-            прозрачной глянцевой
-          </label>
 
-          <br />
-          <label>
-            <Field type="radio" name="laminat" value="clearMat" />
-            прозрачной матовой
-          </label>
-
-          <br />
-          <label>
-            <Field type="radio" name="laminat" value="whiteGloss" />
-            белая глянец
-          </label>
-
+          <Field as="select" name="typeFilmlaminat">
+            <option value="null">без ламинации</option>
+            <option value="clearGloss">прозрачной глянцевой</option>
+            <option value="clearMat">прозрачной матовой</option>
+            <option value="whiteGloss">белой, для поклейки изнутри</option>
+          </Field>
           <br />
           <br />
           <button type="submit">расчет</button>

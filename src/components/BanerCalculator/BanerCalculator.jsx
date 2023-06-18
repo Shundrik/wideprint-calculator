@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import styled from "styled-components";
 import * as Yup from "yup";
@@ -7,7 +7,8 @@ const initialValues = {
   width: "",
   height: "",
   onPrint: "",
-  dop: false,
+  dop: "false",
+  eyelets:"false",
 };
 const ErrorText = styled.p`
   color: red;
@@ -19,56 +20,58 @@ const filmSchema = Yup.object().shape({
   cutInSize: Yup.boolean().default(false),
 });
 
+const FormError = ({ name }) => {
+  return (
+    <ErrorMessage
+      name={name}
+      render={(message) => <ErrorText>{message}</ErrorText>}
+    />
+  );
+};
+
 export const BanerCalculator = () => {
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
-  const [results, setResults] = useState(null);
+  // const [width, setWidth] = useState("");
+  // const [height, setHeight] = useState("");
+  // const [results, setResults] = useState(null);
 
-  const FormError = ({ name }) => {
-    return (
-      <ErrorMessage
-        name={name}
-        render={(message) => <ErrorText>{message}</ErrorText>}
-      />
-    );
-  };
+  const handleSubmit = (values,{resetForm}) => {
+    console.log(values);
+    // resetForm()
+  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
 
     // Проверка введенных значений
-    if (isNaN(parseFloat(width)) || isNaN(parseFloat(height))) {
-      alert("Пожалуйста, введите числовые значения для ширины и высоты.");
-      return;
-    }
+    // if (isNaN(parseFloat(width)) || isNaN(parseFloat(height))) {
+    //   alert("Пожалуйста, введите числовые значения для ширины и высоты.");
+    //   return;
+    // }
 
     // Выполнение расчетов
-    const area = parseFloat(width) * parseFloat(height);
-    const materialAmount = calculateMaterialAmount(area);
-    const cost = calculateCost(area, materialAmount);
+    // const area = parseFloat(width) * parseFloat(height);
+    // const materialAmount = calculateMaterialAmount(area);
+    // const cost = calculateCost(area, materialAmount);
 
     // Установка результатов
-    setResults({
-      area,
-      materialAmount,
-      cost,
-    });
-  };
+  //   setResults({
+  //     area,
+  //     materialAmount,
+  //     cost,
+  //   });
+  // };
 
   // Функция для расчета количества материала
-  const calculateMaterialAmount = (area) => {
+  // const calculateMaterialAmount = (area) => {
     // Ваш код для расчета количества материала
-  };
+  // };
 
   // Функция для расчета стоимости печати
-  const calculateCost = (area, materialAmount) => {
+  // const calculateCost = (area, materialAmount) => {
     // Ваш код для расчета стоимости
-  };
+  // };
 
   return (
     <div>
-      <h1>Порахувати банер</h1>
-      <Formik
+        <Formik
         initialValues={initialValues}
         validationSchema={filmSchema}
         onSubmit={handleSubmit}
@@ -86,21 +89,21 @@ export const BanerCalculator = () => {
           <br />
           <label>
             <Field type="radio" name="onPrint" value="mash" />
-            Сетка
+            Баннерная Сетка
           </label>
           <br />
           <label>
             <Field type="radio" name="onPrint" value="BlackOut" />
-            Блекаут
+            Баннер Блекаут
           </label>
           <br />
           <label>
             <Field type="radio" name="onPrint" value="backlit" />
-            флекс
+            Баннер флекс
           </label>
           <br />
+<p>         Размер изделия</p>
 
-          <br />
           <label>
             ширина{" "}
             <Field
@@ -120,19 +123,19 @@ export const BanerCalculator = () => {
             ></Field>{" "}
             mm
           </label>
-          <FormError name="height" />
+         <FormError name="height" />
 
           <br />
-          <p>выбери доп обработку</p>
+          <p>Выбери доп услуги</p>
           <label>
-            <Field type="checkbox" name="dop"  />
+            <Field type="checkbox" name="dop" />
             вырезать в размер
           </label>
           <p>подвороты</p>
 
           <label>
             <Field type="checkbox" name="dopAll" />
-            подвороты по перриметру 
+            подвороты по перриметру
           </label>
           <br />
 
@@ -161,7 +164,7 @@ export const BanerCalculator = () => {
           <p>Установка люверсов</p>
           <br />
           <label>
-            <Field type="radio" name="eyelets" value="cut" />
+          <Field type="checkbox" name="eyelets" />
             люверсы по перриметру
           </label>
           <br />
@@ -179,7 +182,7 @@ export const BanerCalculator = () => {
           <button type="submit">расчет</button>
         </Form>
       </Formik>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <label htmlFor="widthInput">Ширина:</label>
         <input
           type="number"
@@ -206,10 +209,10 @@ export const BanerCalculator = () => {
           <p>Площадь печати: {results.area} кв. м.</p>
           <p>Количество материала: {results.materialAmount} м.</p>
           <p>Стоимость: {results.cost} грн.</p>
-        </div>
-      )}
+        </div> */}
+      {/* )} */}
     </div>
   );
-};
+}
 
 // export default BanerCalculator;

@@ -9,8 +9,8 @@ export const Result = () => {
           <th>Ширина в мм</th>
           <th>Висота в мм</th>
           <th>кол-во</th>
-          <th>цена н/р</th>
-          <th>цена б/р</th>
+          <th>цена без ндс</th>
+          <th>цена с ндс</th>
         </tr>
       </thead>
       <tbody>
